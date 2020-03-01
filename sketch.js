@@ -18,7 +18,7 @@ function setup(){
     button.position(input.x + input.width, 10);
     button.mousePressed(clicked);
 
-    slider = createSlider(0, 0.1, 0.01,0.001);
+    slider = createSlider(0.001, 0.1, 0.01,0.001);
     slider.position(10, 550);
     
 

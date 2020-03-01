@@ -74,19 +74,29 @@ Tree.prototype.addValue= function(val){
       }
     }
     z.parent=y;
+    
     if(y==this.nil){
       this.root=z;
       //z.x=width/2;
       //z.y=40;
+      z.x=width/2;
+      z.y=70;
+
+
       z.newx=width/2;
       z.newy=40;
 
     }
     else if(z.value<y.value){
       y.left=z;
+      z.x=y.x-50;
+      z.y=y.y+70;
+
     }
     else{
       y.right=z;
+      z.x=y.x+50;
+      z.y=y.y+70;
     }
     z.left=this.nil;
     z.right=this.nil;
