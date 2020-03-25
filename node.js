@@ -2,7 +2,7 @@
 class Node{
 
   constructor(val,color){
-    this.value = int(val);
+    this.value = val;
     this.left = null;
     this.right= null;
     this.parent= null;
@@ -15,8 +15,29 @@ class Node{
     this.drawx;
     this.drawy;
     
+  }
+
+  Copy(node,nil){
+
+    this.value = node.value;
+   
+    this.x=node.x;
+    this.y=node.y;
+    this.newx=node.newx;
+    this.newy=node.newy;
+    this.lambda=node.lambda;
+    this.color=node.color;
+    this.drawx=node.drawx;
+    this.drawy=node.drawy;
+    this.left = nil;
+    this.right= nil;
+    this.parent= nil;
 
   }
+
+
+
+
 
  
 }
