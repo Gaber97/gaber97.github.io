@@ -1,11 +1,10 @@
-
 button{
 
     border: none;
     background-color: gray;
     border-radius: 5px;
     color: white;
- 
+
 }
 
 body{
@@ -21,9 +20,12 @@ button:hover{
 }
 
 input{
-    font-size:20;
+    font-size:15;
     text-align: right;
+
 }
+
+
 
 input:disabled,button:disabled{
     background-color: #353535;
@@ -31,39 +33,48 @@ input:disabled,button:disabled{
 
 
 div{
-
     background-color: #252424;
-    
-    
-   
-
-
-
-
 }
+
+div#vertical{
+    background-color: #181818;
+}
+
+
+div#text{
+    background-color: #252424;
+    color:white;
+}
+
 
 #helpDialog{
 
-    background-color: gray;
+    background-color: rgb(172, 172, 172);
     border-radius: 30px;
     overflow : auto;
-    
+
 
 
 }
 
+#helpNode{
+
+    background-color: gray;
+    border-radius: 5px;
+    overflow : auto;
+    border: 1px solid black;
 
 
 
+}
 
 button,input {
-    transition-duration: 0.4s;
+    transition-duration: 0s;
   }
 
-  
+
 #helpDialog::-webkit-scrollbar {
     display: none;
 
 
 }
-
