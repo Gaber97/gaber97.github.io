@@ -52,7 +52,7 @@ function draw(){
     LockSteps(Visualazer.canStep());
     Visualazer.nextStep=maxSlider-slider.value();
     Visualazer.speed=slider.value()/10000;
-    frameCount;
+   // frameCount;
 
 
 
@@ -65,12 +65,23 @@ function LockOperations(canClick) {
         buttonAdd.removeAttribute('disabled',"");
         buttonDel.removeAttribute('disabled',"");
         buttonFind.removeAttribute('disabled',"");
+        buttonPre.removeAttribute('disabled',"");
+        buttonNext.removeAttribute('disabled',"");
+        buttonPreOrder.removeAttribute('disabled',"");
+        buttonInOrder.removeAttribute('disabled',"");
+        buttonPostOrder.removeAttribute('disabled',"");
 
     } else {
         input.attribute('disabled',"");
         buttonAdd.attribute('disabled',"");
         buttonDel.attribute('disabled',"");
         buttonFind.attribute('disabled',"");
+        
+        buttonPre.attribute('disabled',"");
+        buttonNext.attribute('disabled',"");
+        buttonPreOrder.attribute('disabled',"");
+        buttonInOrder.attribute('disabled',"");
+        buttonPostOrder.attribute('disabled',"");
 
     }
   }
@@ -156,8 +167,30 @@ function createVisualElements(){
 
     buttonFind = createButton('Find');
     buttonFind.position(buttonDel.x + buttonDel.width+10, buttonDel.y );
-
     buttonFind.size(50,30);
+
+    buttonPre = createButton('Pre');
+    buttonPre.position(buttonFind.x + buttonFind.width+40, buttonFind.y );
+    buttonPre.size(50,30);
+
+    buttonNext = createButton('Next');
+    buttonNext.position(buttonPre.x + buttonPre.width+10, buttonPre.y );
+    buttonNext.size(50,30);
+
+    
+    buttonPreOrder = createButton('PreOrder');
+    buttonPreOrder.position(buttonNext.x + buttonNext.width+40, buttonNext.y );
+    buttonPreOrder.size(80,30);
+
+    
+    buttonInOrder = createButton('InOrder');
+    buttonInOrder.position(buttonPreOrder.x + buttonPreOrder.width+10, buttonPreOrder.y );
+    buttonInOrder.size(80,30);
+    
+    buttonPostOrder = createButton('PostOrder');
+    buttonPostOrder.position(buttonInOrder.x + buttonInOrder.width+10, buttonInOrder.y );
+    buttonPostOrder.size(80,30);
+    
 
     buttonForwardSkip = createButton('>>');
     buttonForwardSkip.position(input.x, input.y + input.height+ 15);
@@ -303,6 +336,30 @@ function blindButtons(){
         n=input.value();
         Visualazer.operationInTree(n,"Find");
         input.value("");
+
+    });
+
+    buttonPreOrder.mousePressed(() => {
+
+        
+        Visualazer.operationInTree(0,"PreOrder");
+        
+
+    });
+
+    buttonInOrder.mousePressed(() => {
+
+        
+        Visualazer.operationInTree(0,"InOrder");
+        
+
+    });
+
+    buttonPostOrder.mousePressed(() => {
+
+        
+        Visualazer.operationInTree(0,"PostOrder");
+        
 
     });
 
@@ -525,10 +582,6 @@ function IsRBTree(){
         
     }
 }
-
-
-
-
 
 
 function isRBTreeBlackHeightValid(tree)

@@ -1,6 +1,7 @@
 
 class Treevisualizer {
     constructor(){
+
         this.speed=0.01;
         this.dir=1;
         this.anim=true;
@@ -26,6 +27,7 @@ class Treevisualizer {
         this.dialog=createDiv("");
         this.dialog.hide();
         this.dialog.size(50,50);
+        this.moved=true;
     }
     counterNextStep(){
 
@@ -81,10 +83,42 @@ class Treevisualizer {
             case "Find":
                 //még nincs mit
                 if(this.visStepsNumber==-1 || this.actualStep==-1) return 0;
-                
-
+        
                 this.addSteps(this.tree.findVis(val));
 
+            break;
+            case "Pre":
+                //még nincs mit
+                if(this.visStepsNumber==-1 || this.actualStep==-1) return 0;
+                this.addSteps(this.tree.findVis(val));
+
+            break;
+            case "Next":
+                //még nincs mit
+                if(this.visStepsNumber==-1 || this.actualStep==-1) return 0;
+                this.addSteps(this.tree.findVis(val));
+
+            break;
+            case "PreOrder":
+                //még nincs mit
+                if(this.visStepsNumber==-1 || this.actualStep==-1) return 0;
+
+                this.addSteps(this.tree.visOrder("PreOrder"));
+
+            break;
+            case "InOrder":
+                //még nincs mit
+                if(this.visStepsNumber==-1 || this.actualStep==-1) return 0;
+            
+                this.addSteps(this.tree.visOrder("InOrder"));
+
+            break;
+            case "PostOrder":
+                //még nincs mit
+                if(this.visStepsNumber==-1 || this.actualStep==-1) return 0;
+                
+
+                this.addSteps(this.tree.visOrder("PostOrder"));
 
             break;
               default:
@@ -256,7 +290,7 @@ class Treevisualizer {
         let node2;
         let node3;
 
-        let moved=true;
+        this.moved=true;
 
         if(this.visStepsNumber==-1 ||this.actualStep==-1) return 0;
 
@@ -264,15 +298,11 @@ class Treevisualizer {
 
         let actualListelement=actual["List"][this.actualStepElement];
 
-        
-
-
         switch (actualListelement.command) {
             case "Add":
 
-
                node1=this.visNode1;
-               node1.newy=node1.y-15;
+               node1.newy=node1.y-5;
                node1.value=actualListelement.visElement2.value;
                node1.color=actualListelement.visElement2.color;
 
@@ -287,13 +317,16 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement3);
 
-
                 if(val<value){
-                    this.drawNode(node1,50,0);
+                    this.drawNode(node1,45,0);
+                }
+                else if(val==value){
+                    this.drawNode(node1,0,0);
                 }
                 else{
 
-                    this.drawNode(node1,-50,0);
+
+                    this.drawNode(node1,-45,0);
                 }
 
               break;
@@ -470,7 +503,7 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement5);
 
-                moved=actualListelement.visElement6;
+                this.moved=actualListelement.visElement6;
 
 
             break;
@@ -496,7 +529,7 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement4);
 
-                moved=actualListelement.visElement5;
+                this.moved=actualListelement.visElement5;
 
 
             break;
@@ -506,8 +539,8 @@ class Treevisualizer {
 
                 node2=this.visNode2;
 
-                moved=actualListelement.visElement5;
-                if(moved){
+                this.moved=actualListelement.visElement5;
+                if(this.moved){
                     this.MoveNode(node1);
                     this.MoveNode(node2);
                 }
@@ -535,9 +568,9 @@ class Treevisualizer {
 
                 node1=this.visNode1;
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
-                if(moved){
+                if(this.moved){
                     this.MoveNode(node1);
 
                 }
@@ -549,16 +582,16 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement3);
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
             break;
             case  "FixDelCase2":
 
                 node1=this.visNode1;
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
-                if(moved){
+                if(this.moved){
                     this.MoveNode(node1);
 
                 }
@@ -570,16 +603,16 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement3);
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
             break;
             case  "FixDelCase3":
 
                 node1=this.visNode1;
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
-                if(moved){
+                if(this.moved){
                     this.MoveNode(node1);
 
                 }
@@ -591,16 +624,16 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement3);
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
             break;
             case  "FixDelCase4":
 
                 node1=this.visNode1;
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
 
-                if(moved){
+                if(this.moved){
                     this.MoveNode(node1);
 
                 }
@@ -612,19 +645,41 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement3);
 
-                moved=actualListelement.visElement4;
+                this.moved=actualListelement.visElement4;
+
+            break;
+            case  "Orders":
+
+                node1=this.visNode1;
+
+                this.moved=actualListelement.visElement3;
+
+                if(this.moved){
+                    this.MoveNode(node1);
+
+                }
+
+                this.CiyleChange(node1,47,55);
+
+                fill(100,100,0);
+                ellipse( node1.drawx, node1.drawy, node1.round, node1.round);
+
+                this.drawText(actualListelement.visElement2);
+
+                
 
             break;
             case "End":
 
                     this.drawText(actualListelement.visElement2);
+                    
 
               break;
           }
 
 
 
-          if(this.vistree.root!=this.vistree.nil && moved)  this.PreOrderMove(this.vistree.root,this.vistree.nil);
+          if(this.vistree.root!=this.vistree.nil && this.moved)  this.PreOrderMove(this.vistree.root,this.vistree.nil);
 
           if(this.vistree.root!=this.vistree.nil)  this.PostOrderTreeDraw(this.vistree.root,this.vistree.nil);
 
@@ -637,7 +692,7 @@ class Treevisualizer {
         textAlign(LEFT,CENTER);
         textSize(20);
         
-        text(info,20,  (5*windowHeight/6) -150);
+        text(info,20,  (5*windowHeight/6) -100);
     }
 
 
@@ -678,7 +733,7 @@ class Treevisualizer {
 
     }
 
-    PostOrderTreeDraw=function(n,nil){
+    PostOrderTreeDraw(n,nil){
 
         if(n.left!= nil  ){
             this.PostOrderTreeDraw(n.left,nil);
@@ -703,12 +758,17 @@ class Treevisualizer {
            // line(n.right.drawx, n.right.drawy, n.drawx, n.drawy);
         }
 
+        
+
+
         if(n.parent!=nil){
             //console.log(n.parent.drawx + " "+ n.parent.drawy);
             stroke(255);
             strokeWeight(2);
             line(n.parent.drawx, n.parent.drawy, n.drawx, n.drawy);
         }
+
+
 
         this.drawNode(n,0,0);
 
@@ -717,7 +777,7 @@ class Treevisualizer {
 
     }
 
-    PreOrderMove=function(n,nil){
+    PreOrderMove(n,nil){
 
         if(n.left!= nil  ){
             this.PreOrderMove(n.left,nil);
@@ -729,6 +789,7 @@ class Treevisualizer {
 
         }
 
+        
         this.MoveNode(n);
     }
 
@@ -767,19 +828,22 @@ class Treevisualizer {
     }
 
     ChangeTree(){
-        let actualvisElement= this.visNode1=this.visSteps[this.actualStep]["List"][this.actualStepElement];
+        let actualvisElement= this.visSteps[this.actualStep]["List"][this.actualStepElement];
+        console.log(actualvisElement)
         let command = actualvisElement.command;
 
-        if(command == "Add" || command == "Find" ||command == "FindMin" ){
+        console.log(command);
+
+        if(command == "Add" || command == "Find" ||command == "FindMin" || command == "Orders" ){
             this.vistree=this.visSteps[this.actualStep]["OldTree"].Clone();
         }
         else{
             this.vistree=actualvisElement.visElement1.Clone();
         }
 
-        if(command == "Add"   ){
+        if(command == "Add" || command == "Orders"  ){
             this.visNode1=actualvisElement.visElement1.Copy();
-            this.visNode1.y=this.visNode1.y+5;
+            //this.visNode1.y=this.visNode1.y+7;
         }
         else if(command=="DelBindingNil"){
             this.visNode1=actualvisElement.visElement2.Copy();
@@ -790,6 +854,7 @@ class Treevisualizer {
         }
 
     }
+
     clear(){
         this.visSteps=[];
         this.actualStep=-1;
@@ -798,6 +863,7 @@ class Treevisualizer {
         clearInterval(this.timer);
 
     }
+
     canAddAndDel(){
         if(this.visStepsNumber==-1 || this.actualStep==-1){
             return true;
@@ -807,9 +873,11 @@ class Treevisualizer {
         }
         return false;
     }
+
     canStep(){
         return this.userStop;
     }
+    
     showDialog(n,nil,x,y){
             if(n.left!= nil  ){
                 this.showDialog(n.left,nil,x,y);

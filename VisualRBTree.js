@@ -15,6 +15,7 @@ class VisaulRBTree extends RBTree{
     this.verticalchange=45;
     this.horizontalchange=45;
     this.Steps=[];
+    this.str=[]
   }
 
 addValue(val){
@@ -229,10 +230,10 @@ delValue(k){
   }
  
   if(x!=this.nil){
-    this.Steps.push(new visElement("Del",this.Clone(),z.Copy(),y.Copy(),x.Copy(),"A "+ String(z.value) +" értékű csúcs törlése",false));
+    this.Steps.push(new visElement("Del",this.Clone(),z.Copy(),y.Copy(),x.Copy(),"A "+ String(z.value) +" értékű csúcs törlése.Az "+String(y.value)+" értékének átmásolása a törlendő csúcs helyére.",false));
   }
   else{
-    this.Steps.push(new visElement("DelNil",this.Clone(),z.Copy(),y.Copy(),"A "+ String(z.value) +" értékű csúcs törlése",false));
+    this.Steps.push(new visElement("DelNil",this.Clone(),z.Copy(),y.Copy(),"A "+ String(z.value) +" értékű csúcs törlése. A "+String(y.value)+" érékének átmásolása a törelendő csúcs helyére." ,false));
   }
   
   x.parent=y.parent;
@@ -290,11 +291,12 @@ delValue(k){
   }
   
   if(x!=this.nil){
-    this.Steps.push(new visElement("DelBinding",this.Clone(),z.Copy(),x.Copy(),"A " +String(x.value)+" értékű elem átkötése",true));
+    this.Steps.push(new visElement("DelBindingNil",this.Clone(),x.Copy(),"A " +String(x.value)+" értékű elem átkötése",true));
+    
   }
   else{
     if(z!=y){
-      this.Steps.push(new visElement("DelBindingNil",this.Clone(),z.Copy(),"Törlés : " +String(x.value)+" értékű elem átkötése",true));
+      this.Steps.push(new visElement("DelBindingNil",this.Clone(),z.Copy(),"Törlés : " +String(z.value)+" értékű elem átkötése",true));
     }
   
   }
@@ -537,7 +539,7 @@ RepaerAdd(z){
       else{
          
         if(z==z.parent.right){
-          this.Steps.push(new visElement("AddPreaper",this.Clone(),z.Copy(),z.parent.Copy(),"2. esett : A "+ String(z.value) +" értékű csúcs nagyszülőjének jobb gyereke piros\nA "+ String(z.value) +" értékű csúcs szülőjének a jobb gyereke az adott csúcs.\nForgatás következik balra A 3. esetbe."));
+          this.Steps.push(new visElement("AddPreaper",this.Clone(),z.Copy(),z.parent.Copy(),"2. esett : A "+ String(z.value) +" értékű csúcs nagyszülőjének jobb gyereke piros\nA "+ String(z.value) +" értékű csúcs szülőjének a jobb gyereke az adott csúcs.\nForgatás következik balra, a 3. esetbe."));
           this.CordinatEquals();
           
           z=z.parent;
@@ -569,7 +571,7 @@ RepaerAdd(z){
       else{
        
         if(z==z.parent.left){
-          this.Steps.push(new visElement("AddPreaper",this.Clone(),z.Copy(),z.parent.Copy(),"2. esettA "+ String(z.value) +" értékű csúcs nagyszülőjének bal gyereke piros\n A "+ String(z.value) +" értékű csúcs szülőjének a bal gyereke az adott csúcs.\nForgatás következik jobbra."));
+          this.Steps.push(new visElement("AddPreaper",this.Clone(),z.Copy(),z.parent.Copy(),"2. esettA "+ String(z.value) +" értékű csúcs nagyszülőjének bal gyereke piros\n A "+ String(z.value) +" értékű csúcs szülőjének a bal gyereke az adott csúcs.\nForgatás következik jobbra, a 3 esetbe ."));
           this.CordinatEquals();
 
           z=z.parent;
@@ -594,6 +596,133 @@ this.root.color="Black";
 
 
 }
+
+
+visOrder(ordertype){
+
+  this.Steps=[];
+
+  let oldTree=this.Clone();
+
+  this.str=[]
+
+
+  this.visOrderRecursive(this.root,this.str,ordertype);
+
+  
+
+  let newTree=this.Clone();
+
+  this.Steps.push(new visElement("End",this.Clone(),""));
+
+  return {  "Operation" : "Orders",
+    
+  "OldTree": oldTree,
+    
+  "List":this.Steps,
+    
+  "NewTree": newTree
+  };
+
+}
+
+
+visOrderRecursive(n,str,ordertype){
+
+
+  if(ordertype=="PreOrder"){
+    
+    str.push(n.value)
+    this.Steps.push(new visElement("Orders",n.Copy()," PreOrder : "+str.toString(),true));  
+    
+  }
+
+  if(n.left!=this.nil){
+    this.visOrderRecursive(n.left,str,ordertype);
+  
+  }
+  
+  if(ordertype=="InOrder"){
+    
+      str.push(n.value)
+      this.Steps.push(new visElement("Orders",n.Copy()," InOrder : "+str.toString(),true));  
+      
+    }  
+    
+    
+  if(n.right!=this.nil){
+    this.visOrderRecursive(n.right,str,ordertype);
+   
+  }
+
+  if(ordertype=="PostOrder"){
+    
+    str.push(n.value)
+    this.Steps.push(new visElement("Orders",n.Copy()," PostOrder : "+str.toString(),true));  
+    
+  }
+
+}
+
+visNext(val){
+
+  this.Steps=[];
+
+  let oldTree=this.Clone();
+
+  let p=find(val)
+
+  if(p==this.nil){
+    this.Steps.push(new visElement("End",this.Clone(),"Nincs ilyen elem."));
+
+  }
+  else{
+
+    let k;
+
+    if(p.right != this.nil){
+      k = this.VisMinimum(p.right,p);
+    }
+    else{
+      this.Steps.push(new visElement("Next",p.Copy(),"A "+String(p.value)+" nincs jobb gyereke. Felfelé keresük a következő elemet."));
+
+      let k=p.parent;
+      while(s!=this.nil && p==s.right){
+        p=k;
+        k=s.parent;
+        this.Steps.push(new visElement("Next",p.Copy(),"A "+String(p.value)+" nincs jobb gyereke. Felfelé keresük a következő elemet."));
+
+      }
+      
+    }
+
+
+
+
+  }
+  
+
+  let newTree=this.Clone();
+
+  this.Steps.push(new visElement("End",this.Clone(),""));
+
+  return {  "Operation" : "PrevOrNext",
+    
+  "OldTree": oldTree,
+    
+  "List":this.Steps,
+    
+  "NewTree": newTree
+  };
+
+
+
+
+}
+
+
+
+
 
 PixelSet(x,px,py,xchild){
   
@@ -626,8 +755,8 @@ PixelChange(n,px,py){
   }
 }
 
-
 Clone(){
+
     let newTree= new VisaulRBTree();
     if (this.root == this.nil)
         return newTree;
@@ -635,9 +764,7 @@ Clone(){
     let root=this.root;
     newTree.root = root.Copy(newTree.nil);
      let clone=newTree.root;
-   
-    
-  
+
     while (root != this.nil)
     {
       
@@ -665,6 +792,7 @@ Clone(){
     }
     return newTree;
 }
+
   CordinatEquals=function(){
     this.CordinatEqualsOrder(this.root,this.nil);
   }
@@ -681,5 +809,9 @@ Clone(){
     n.x=n.newx;
     n.y=n.newy;
     n.lambda=1;
+
+
 }
+
+
 }
