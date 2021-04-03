@@ -64,24 +64,23 @@ class DiagramTree extends RBTree {
         let black=1;
         console.log(node)
         
-        while( node!= this.nil){
+        while( node != this.nil){
 
-
-            if(node =! this.root && node.color=="Black")
+            console.log(node);
+            if(node != this.root && node.color=="Black")
             { 
                 black=black+1;
             
-            };
+            }
 
-
-
-
+            
+            
             node=node.left;
-            console.log(node);
+            
 
             
         }
-
+        
         return black;
 
     }

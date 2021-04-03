@@ -543,19 +543,20 @@ function shuffle(array) {
 
 function IsRBTree(){
 
-    for (let index = 0; index < 100; index++) {
+    
         
-            let tree=new VisaulRBTree();
+            let tree=new RBTree();
         
-            for (var a=[],i=0;i<100;++i) a[i]=i;
+            //for (var a=[],i=0;i<1000000;++i) a[i]=i;
         
-            array=shuffle(a);
+            //array=shuffle(a);
             
         
-            valid=true;
-        
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index];
+            let valid=true;
+            let top=2000000;
+
+            for (let index = 0; index < top; index++) {
+                const element = current = Math.floor(Math.random() * (top + 1));
                 
                 tree.addValue(element);
         
@@ -563,24 +564,18 @@ function IsRBTree(){
                 //valid=valid&&isRBTreeBlackHeightValid(tree);
                 
             }
+
+
         
             
             console.log(isRBTreeBlackHeightValid(tree))
-            array=shuffle(array);
         
-            for (let index = 0; index < array.length/2; index++) {
-                const element = array[index];
-                
-                tree.delValue(element);
+
+            
+            //console.log(isRBTreeBlackHeightValid(tree));
+       // const element = array[index];
         
-                //console.log(isRBTreeBlackHeightValid(tree));
-                //valid=valid&&isRBTreeBlackHeightValid(tree);
-        
-            }
-            console.log(isRBTreeBlackHeightValid(tree));
-        const element = array[index];
-        
-    }
+    
 }
 
 
