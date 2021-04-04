@@ -3,15 +3,14 @@ class RBTree {
   root;
   constructor() {
     this.nil = new RBNode(-99999, "Black");
-    this.root = this.nil;
     this.nil.left = this.nil;
     this.nil.parent = this.nil;
     this.nil.right = this.nil;
   }
   addValue(val) {
-    let z = new RBNode(val, "Red")
-    let y = this.nil;
-    let x = this.root;
+    var z = new PoorNode(val, "Red")
+    var y = this.nil;
+    var x = this.root;
 
     while (x != this.nil) {
       y = x;
