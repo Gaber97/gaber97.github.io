@@ -31,8 +31,6 @@ class Treevisualizer {
     }
     counterNextStep(){
 
-        
-
         if(!this.userStop && this.actualStep!=-1 ){
             this.counter++;
             //console.log(this.counter);
@@ -50,7 +48,7 @@ class Treevisualizer {
     stopOrStartInterval(){
 
         this.userStop=!this.userStop;
-
+        this.counter=0;
     }
 
     operationInTree(val,operation){
@@ -788,8 +786,6 @@ class Treevisualizer {
               break;
           }
 
-
-
           if(this.vistree.root!=this.vistree.nil && this.moved)  this.PreOrderMove(this.vistree.root,this.vistree.nil);
 
           if(this.vistree.root!=this.vistree.nil)  this.PostOrderTreeDraw(this.vistree.root,this.vistree.nil);
@@ -803,7 +799,8 @@ class Treevisualizer {
         textAlign(LEFT,CENTER);
         textSize(20);
         
-        text(info,20,  (5*windowHeight/6) -100);
+        //text(info,20,  (5*windowHeight/6) -100);
+        text(info,20, 400);
     }
 
 
@@ -900,7 +897,6 @@ class Treevisualizer {
 
         }
 
-        
         this.MoveNode(n);
     }
 
@@ -919,13 +915,11 @@ class Treevisualizer {
             }
             if( n.lambda < 0){
 
-
                 n.lambda=1;
                 n.x=n.newx;
                 n.y=n.newy;
                 n.drawx =n.newx;
                 n.drawy = n.newy;
-
 
             }
         }
@@ -939,6 +933,7 @@ class Treevisualizer {
     }
 
     ChangeTree(){
+        
         let actualvisElement= this.visSteps[this.actualStep]["List"][this.actualStepElement];
         //console.log(actualvisElement)
         let command = actualvisElement.command;
