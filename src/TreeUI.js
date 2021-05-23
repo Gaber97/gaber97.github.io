@@ -33,8 +33,8 @@ class TreeUI {
         this.clearTreeButton;
         this.buttonPause;
         this.textDiv;
-
         this.helpDivElement;
+        this.canvas;
 
         if (windowHeight > 600) {
 
@@ -50,7 +50,7 @@ class TreeUI {
 
         this.visualizer = new Treevisualizer();
         
-        this.Tester = new Tester(this.visualizer);
+        this.tester = new Tester(this.visualizer);
 
 
         this.createVisualElements();
@@ -159,8 +159,8 @@ class TreeUI {
         this.divHorizontal2.position(0, this.sizey);
         this.divHorizontal2.size(this.sizex, 50);
 
-        canvas = createCanvas(this.sizex - 70, this.sizey - 50);
-        canvas.position(70, 50);
+        this.canvas = createCanvas(this.sizex - 70, this.sizey - 50);
+        this.canvas.position(70, 50);
         //
         this.input = createInput();
         this.input.position(10, 10);
@@ -454,7 +454,9 @@ class TreeUI {
         this.randomButton.mousePressed(() => {
 
             this.visualizer.clear();
-            this.randomTree(this.randomInput.value());
+            //this.randomTree(this.randomInput.value());
+            this.visualizer.randomTree(this.randomInput.value());
+            
             this.visualizer.stepForwardSkip();
             this.randomInput.value("");
 
@@ -516,26 +518,6 @@ class TreeUI {
     }
 
 
-    randomTree(num) {
-
-        num = parseInt(num)
-
-        if (isNaN(num)) {
-
-            return 0;
-        }
-        if (num < 1 || num > 30) {
-
-            return 0;
-        }
-
-        for (let i = 0; i < num; i++) {
-
-            this.visualizer.operationInTree(random(1, 1000), "Add");
-        }
-
-
-    }
 
 
 
