@@ -112,6 +112,9 @@ class Treevisualizer {
 
     addSteps(data) {
 
+
+        //add a new method to the vizualizer
+
         if (data.length == 0) {
             return 0;
         }
@@ -127,6 +130,8 @@ class Treevisualizer {
     }
 
     stepForward() {
+
+        //step one step forward
 
         if (this.visStepsSize == -1) {
 
@@ -144,7 +149,7 @@ class Treevisualizer {
         if (this.actualStepElement + 1 >= this.visSteps[this.actualStep]["List"].length) {
 
             if (this.actualStep + 1 <= this.visStepsSize) {
-
+  
                 this.actualStep = this.actualStep + 1;
                 this.tree = this.visSteps[this.actualStep]["OldTree"].clone();
                 this.actualStepElement = 0;
@@ -153,6 +158,7 @@ class Treevisualizer {
             }
             else {
                 this.tree = this.visSteps[this.actualStep]["NewTree"].clone();
+
             }
 
         }
@@ -160,12 +166,14 @@ class Treevisualizer {
 
             this.actualStepElement = 1 + this.actualStepElement;
             this.changeTree();
-
+    
         }
     }
 
 
     stepForwardSkip() {
+
+        //step the end the vizual method
 
         if (this.visStepsSize == -1) {
 
@@ -184,6 +192,7 @@ class Treevisualizer {
         }
         else {
             this.actualStepElement = this.visSteps[this.actualStep]["List"].length - 1;
+            this.tree = this.visSteps[this.actualStep]["NewTree"].clone();
             this.changeTree();
         }
 
@@ -191,6 +200,8 @@ class Treevisualizer {
 
 
     stepBackward() {
+
+        //step one step back
 
 
         if (this.visStepsSize == -1) {
@@ -205,7 +216,7 @@ class Treevisualizer {
 
                 this.actualStep = this.actualStep - 1;
                 this.actualStepElement = this.visSteps[this.actualStep]["List"].length - 1;
-                //this.treeIsSet=false;
+
                 this.tree = this.visSteps[this.actualStep]["NewTree"].clone();
                 this.changeTree();
             }
@@ -228,6 +239,9 @@ class Treevisualizer {
 
     stepBackwardSkip() {
 
+
+        //step the begining the vizual method
+
         if (this.visStepsSize == -1) {
             return 0;
         }
@@ -249,6 +263,8 @@ class Treevisualizer {
 
 
     drawTree() {
+
+        //darw the tree, and the actual step thinks
 
         let node1;
         let node2;
@@ -581,7 +597,7 @@ class Treevisualizer {
 
                 this.drawText(actualListelement.visElement5);
 
-                //this.moved=actualListelement.visElement4;
+ 
 
                 break;
             case "FixDelCase2":
@@ -731,8 +747,7 @@ class Treevisualizer {
 
         if (this.vistree.root != this.vistree.nil) this.postOrderTreeDraw(this.vistree.root, this.vistree.nil);
 
-        //this.drawNode(this.vistree.nil,0,0);
-
+        //draw the new added node before the tree
 
         switch (actualListelement.command) {
             case "Add":
@@ -772,16 +787,19 @@ class Treevisualizer {
 
     drawText(info) {
 
+        //draw the info for the steps
+
         fill(0);
         textAlign(LEFT, CENTER);
         textSize(20);
 
-        //text(info,20,  (5*windowHeight/6) -100);
         text(info, 20, 400);
     }
 
 
     moveNodeVertically(n) {
+
+        //the new added node move vertical the actual step
 
         n.drawx = n.x;
         n.drawy = n.y * n.lambda + n.newy * (1 - n.lambda);
@@ -793,6 +811,11 @@ class Treevisualizer {
     }
 
     circleChange(n, min, max) {
+
+
+        //pulz a circle 
+
+
         n.round = n.round + 7 * this.speed * n.dir;
 
         if (n.round < min || n.round > max) {
@@ -802,6 +825,9 @@ class Treevisualizer {
 
     
     drawNode(n, xchange, ychange) {
+
+        //draw the node infos
+
         strokeWeight(1);
         stroke(0);
         fill(0, 0, 0);
@@ -820,6 +846,9 @@ class Treevisualizer {
     }
 
     postOrderTreeDraw(n, nil) {
+
+
+        //draw the tree lines, and nodes
 
         if (n.left != nil) {
             this.postOrderTreeDraw(n.left, nil);
@@ -855,6 +884,8 @@ class Treevisualizer {
 
     preOrderMove(n, nil) {
 
+        //move all nodes in the position
+
         if (n.left != nil) {
             this.preOrderMove(n.left, nil);
 
@@ -868,6 +899,11 @@ class Treevisualizer {
     }
 
     moveNode(n) {
+
+        //calculate the node moviements
+
+
+
         if (this.anim) {
 
             if (n.x != n.newx || n.y != n.newy) {
@@ -901,6 +937,8 @@ class Treevisualizer {
 
     changeTree() {
 
+        //change the vistree in the begining of the actual step
+
         let actualvisElement = this.visSteps[this.actualStep]["List"][this.actualStepElement];
 
         let command = actualvisElement.command;
@@ -928,6 +966,9 @@ class Treevisualizer {
     }
 
     clear() {
+
+        //clear the tree
+
         this.visSteps = [];
         this.actualStep = -1;
         this.visStepsSize = -1;
